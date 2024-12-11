@@ -139,6 +139,9 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- faster loading
+vim.loader.enable()
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -273,7 +276,8 @@ require('lazy').setup({
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
     -- 'folke/tokyonight.nvim',
-    'savq/melange-nvim',
+    -- 'savq/melange-nvim',
+    'tanvirtin/monokai.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
       -- Load the colorscheme here.
@@ -283,9 +287,13 @@ require('lazy').setup({
 
       -- You can configure highlights by doing something like:
       -- vim.cmd.hi 'Comment gui=none'
-      vim.opt.termguicolors = true
-      vim.cmd.colorscheme 'melange'
+      -- vim.opt.termguicolors = true
+      -- vim.cmd.colorscheme 'melange'
+      require('monokai').setup { palette = require('monokai').pro }
     end,
+  },
+  {
+    'nvim-lua/plenary.nvim',
   },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the

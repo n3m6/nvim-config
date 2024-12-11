@@ -4,7 +4,7 @@ return {
     'folke/todo-comments.nvim',
     event = 'VimEnter',
     dependencies = { 'nvim-lua/plenary.nvim' },
-    opts = { signs = false }
+    opts = { signs = false },
   },
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
@@ -67,5 +67,30 @@ return {
     --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
     --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
-  }
+  },
+  {
+    'nvim-treesitter/playground',
+  },
+  {
+    'windwp/nvim-ts-autotag',
+  },
+  {
+    'RRethy/nvim-treesitter-textsubjects',
+  },
+  {
+    'mfussenegger/nvim-ts-hint-textobject',
+    config = function()
+      require('tsht').config.hint_keys = {
+        'h',
+        'j',
+        'f',
+        'd',
+        'n',
+        'v',
+        's',
+        'l',
+        'a',
+      }
+    end,
+  },
 }

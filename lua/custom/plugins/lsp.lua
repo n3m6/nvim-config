@@ -283,6 +283,25 @@ return {
 
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
+    dependencies = { -- this will only be evaluated if nvim-cmp is enabled
+      {
+        'zbirenbaum/copilot-cmp',
+        enabled = vim.g.ai_cmp, -- only enable if wanted
+        opts = {},
+        config = function(_, opts)
+          require('copilot_cmp').setup(opts)
+        end,
+        specs = {
+          {
+            'nvim-cmp',
+            optional = true,
+            priority = 100,
+            group_index = 1,
+            name = 'copilot',
+          },
+        },
+      },
+    },
     config = function()
       local cmp = require 'cmp'
 
@@ -370,4 +389,78 @@ return {
       require('luasnip.loaders.from_lua').load { paths = '~/.snippets' }
     end,
   },
+  {
+    'folke/trouble.nvim',
+    opts = {},
+    cmd = 'Trouble',
+
+    keys = {
+      {
+        '<leader>xx',
+        '<cmd>Trouble diagnostics toggle<cr>',
+        desc = 'Diagnostics (Trouble)',
+      },
+      {
+        '<leader>xX',
+        '<cmd>Trouble diagnostics toggle filter.buf=0<cr>',
+        desc = 'Buffer Diagnostics (Trouble)',
+      },
+      {
+        '<leader>cs',
+        '<cmd>Trouble symbols toggle focus=false<cr>',
+        desc = 'Symbols (Trouble)',
+      },
+      {
+        '<leader>cl',
+        '<cmd>Trouble lsp toggle focus=false win.position=right<cr>',
+        desc = 'LSP Definitions / references / ... (Trouble)',
+      },
+      {
+        '<leader>xL',
+        '<cmd>Trouble loclist toggle<cr>',
+        desc = 'Location List (Trouble)',
+      },
+      {
+        '<leader>xQ',
+        '<cmd>Trouble qflist toggle<cr>',
+        desc = 'Quickfix List (Trouble)',
+      },
+    },
+
+    config = function()
+      require('trouble').setup {}
+    end,
+  },
+  {
+    'zbirenbaum/copilot.lua',
+    cmd = 'Copilot',
+    build = ':Copilot auth',
+    event = 'InsertEnter',
+    opts = {
+      suggestion = {
+        enabled = not vim.g.ai_cmp,
+        auto_trigger = true,
+        keymap = {
+          accept = false, -- handled by nvim-cmp / blink.cmp
+          next = '<M-]>',
+          prev = '<M-[>',
+        },
+      },
+      panel = { enabled = false },
+      filetypes = {
+        markdown = true,
+        help = true,
+      },
+    },
+    config = function()
+      require('copilot').setup()
+    end,
+  },
+  {
+    'zbirenbaum/copilot-cmp',
+    config = function()
+      require('copilot_cmp').setup()
+    end,
+  },
+  { 'giuxtaposition/blink-cmp-copilot' },
 }
