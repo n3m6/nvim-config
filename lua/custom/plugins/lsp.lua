@@ -431,36 +431,4 @@ return {
       require('trouble').setup {}
     end,
   },
-  {
-    'zbirenbaum/copilot.lua',
-    cmd = 'Copilot',
-    build = ':Copilot auth',
-    event = 'InsertEnter',
-    opts = {
-      suggestion = {
-        enabled = not vim.g.ai_cmp,
-        auto_trigger = true,
-        keymap = {
-          accept = false, -- handled by nvim-cmp / blink.cmp
-          next = '<M-]>',
-          prev = '<M-[>',
-        },
-      },
-      panel = { enabled = false },
-      filetypes = {
-        markdown = true,
-        help = true,
-      },
-    },
-    config = function()
-      require('copilot').setup()
-    end,
-  },
-  {
-    'zbirenbaum/copilot-cmp',
-    config = function()
-      require('copilot_cmp').setup()
-    end,
-  },
-  { 'giuxtaposition/blink-cmp-copilot' },
 }
