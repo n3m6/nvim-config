@@ -283,24 +283,29 @@ return {
 
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
+    version = false,
+    event = 'InsertEnter',
     dependencies = { -- this will only be evaluated if nvim-cmp is enabled
-      {
-        'zbirenbaum/copilot-cmp',
-        enabled = vim.g.ai_cmp, -- only enable if wanted
-        opts = {},
-        config = function(_, opts)
-          require('copilot_cmp').setup(opts)
-        end,
-        specs = {
-          {
-            'nvim-cmp',
-            optional = true,
-            priority = 100,
-            group_index = 1,
-            name = 'copilot',
-          },
-        },
-      },
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      -- {
+      --   'zbirenbaum/copilot-cmp',
+      --   enabled = vim.g.ai_cmp, -- only enable if wanted
+      --   opts = {},
+      --   config = function(_, opts)
+      --     require('copilot_cmp').setup(opts)
+      --   end,
+      --   specs = {
+      --     {
+      --       'nvim-cmp',
+      --       optional = true,
+      --       priority = 100,
+      --       group_index = 1,
+      --       name = 'copilot',
+      --     },
+      --   },
+      -- },
     },
     config = function()
       local cmp = require 'cmp'
@@ -334,6 +339,7 @@ return {
         sources = cmp.config.sources({
           { name = 'nvim_lsp', keyword_length = 1 },
           { name = 'nvim_lsp_signature_help' },
+          { name = 'lazydev' },
           { name = 'luasnip' },
           { name = 'path' },
           { name = 'nvim_lua' },
