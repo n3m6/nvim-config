@@ -1,29 +1,32 @@
 return {
-  'folke/noice.nvim',
-  event = 'VeryLazy',
-  opts = {
-    lsp = {
-    --   -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-      override = {
-        ['vim.lsp.util.convert_input_to_markdown_lines'] = false,
-        ['vim.lsp.util.stylize_markdown'] = false,
-        ['cmp.entry.get_documentation'] = false
+  {
+    "folke/noice.nvim",
+    cond = EcoVim.plugins.experimental_noice.enabled,
+    lazy = false,
+    opts = {
+      messages = { enabled = false },
+      lsp = {
+        -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+        override = {
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = false,
+          ["vim.lsp.util.stylize_markdown"] = false,
+          ["cmp.entry.get_documentation"] = true,
+        },
+        progress = {
+          enabled = false,
+        },
+        hover = {
+          enabled = false,
+        },
       },
-      progress = {enabled = false}
-    },
-    -- you can enable a preset for easier configuration
-    presets = {
-      bottom_search = false, -- use a classic bottom cmdline for search
-      command_palette = true, -- position the cmdline and popupmenu together
-      long_message_to_split = true, -- long messages will be sent to a split
-      inc_rename = false, -- enables an input dialog for inc-rename.nvim
-      lsp_doc_border = false -- add a border to hover docs and signature help
-    },
-    messages = {view = 'mini', view_error = 'mini', view_warn = 'mini'}
+      -- you can enable a preset for easier configuration
+      presets = {
+        bottom_search = false,    -- use a classic bottom cmdline for search
+        command_palette = true,   -- position the cmdline and popupmenu together
+        long_message_to_split = true, -- long messages will be sent to a split
+        inc_rename = false,       -- enables an input dialog for inc-rename.nvim
+        lsp_doc_border = false,   -- add a border to hover docs and signature help
+      },
+    }
   },
-  config = function(_, opts)
-    vim.diagnostic.config({update_in_insert = false})
-    require('noice').setup(opts)
-  end,
-  dependencies = {'MunifTanjim/nui.nvim', 'rcarriga/nvim-notify'}
 }
