@@ -1,29 +1,25 @@
 return {
-  -- Add subdirectories here
   {
-    { import = "plugins.ai" },
-    { import = "plugins.languages" },
+    "stevearc/conform.nvim",
+    -- event = 'BufWritePre', -- uncomment for format on save
+    opts = require "configs.conform",
   },
 
-  -- ╭─────────────────────────────────────────────────────────╮
-  -- │ General plugins                                         │
-  -- ╰─────────────────────────────────────────────────────────╯
-  { "AndrewRadev/switch.vim", lazy = false },
-  { "tpope/vim-repeat",       lazy = false },
-  { "tpope/vim-speeddating",  lazy = false },
+  -- These are some examples, uncomment them if you want to see them work!
   {
-    "airblade/vim-rooter",
-    event = "VeryLazy",
+    "neovim/nvim-lspconfig",
     config = function()
-      vim.g.rooter_patterns = EcoVim.plugins.rooter.patterns
-      vim.g.rooter_silent_chdir = 1
-      vim.g.rooter_resolve_links = 1
+      require "configs.lspconfig"
     end,
   },
-  {
-    "kylechui/nvim-surround",
-    version = "*", -- Use for stability; omit to use `main` branch for the latest features
-    event = "VeryLazy",
-    config = true,
-  },
+
+  -- {
+  -- 	"nvim-treesitter/nvim-treesitter",
+  -- 	opts = {
+  -- 		ensure_installed = {
+  -- 			"vim", "lua", "vimdoc",
+  --      "html", "css"
+  -- 		},
+  -- 	},
+  -- },
 }
